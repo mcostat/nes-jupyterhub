@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  jupyterhub:
+    container_name: jupyterhub.nes
+    hostname: jupyterhub
+    build: https://github.com/mcostat/nes-jupyterhub.git
+    image: nes-jupyterhub
+    restart: unless-stopped
+    volumes:
+      - nes_data:/nes/media:ro
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+      - jupyterhub_data:/data
+    networks:
+      - nes_network
+    expose:
+      - 8000
+    ports:
+      - 8000:8000
+    environment:
+      DOCKER_NETWORK_NAME: nes_network
+      CLIENT_ID: tIaWTGDij1MnwZFivsqklGgBfqk8fr7saty5Zvid
+      CLIENT_SECRET: D5zJd1oy90wRLxfvMnDu80GbV7E6KIHynn5r9TsMT3XNhEAgIokZvZFoXEQoYUSDeDoupQZxEeXRfuPuyc4yDJ4XDvxuQVreMFlGkv2I3AWw6y1rNXAq1CZvEaKPdMkp
+      CALLBACK_URL: http://localhost:8000/hub/oauth_callback
+      AUTHORIZE_URL: http://localhost/oauth/authorize/
+      TOKEN_URL: http://nes/oauth/token/
+      USERDATA_URL: http://nes/oauth/userinfo/
+
+volumes:
+  jupyterhub_data:
+  nes_data:
+    #external: true
+
+networks:
+  nes_network:
+    name: nes_network
