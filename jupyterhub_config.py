@@ -1332,10 +1332,16 @@ c.DockerSpawner.volumes = {"jupyterhub-user-{username}": notebook_dir}
 # c.Spawner.pre_spawn_hook = None
 
 from subprocess import check_call
+
+
 def my_hook(spawner):
     username = spawner.user.name
-    spawner.volumes.update({os.getenv("NES_MEDIA_PATH", "nes_devcontainer_nes_media"): "/home/jovyan/work/data"})
-    #os.system("ls -s /nes/media /home/jovyan/work/data")
+    spawner.volumes.update(
+        {os.getenv("NES_MEDIA_PATH", "nes_media"): "/home/jovyan/work/data"}
+    )
+
+    # os.system("ls -s /nes/media /home/jovyan/work/data")
+
 
 c.Spawner.pre_spawn_hook = my_hook
 

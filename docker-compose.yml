@@ -8,7 +8,7 @@ services:
     image: nes-jupyterhub
     restart: unless-stopped
     volumes:
-      - nes_data:/nes/media:ro
+      - nes_media:/nes/media:ro
       - /var/run/docker.sock:/var/run/docker.sock:rw
       - jupyterhub_data:/data
     networks:
@@ -28,8 +28,8 @@ services:
 
 volumes:
   jupyterhub_data:
-  nes_data:
-    #external: true
+  nes_media:
+    external: true
 
 networks:
   nes_network:
