@@ -18,13 +18,16 @@ services:
     ports:
       - 8000:8000
     environment:
+      OAUTH_TLS_VERIFY: 0
+      OAUTH2_USERDATA_REQUEST_TYPE: url
       DOCKER_NETWORK_NAME: nes_network
       CLIENT_ID: tIaWTGDij1MnwZFivsqklGgBfqk8fr7saty5Zvid
       CLIENT_SECRET: D5zJd1oy90wRLxfvMnDu80GbV7E6KIHynn5r9TsMT3XNhEAgIokZvZFoXEQoYUSDeDoupQZxEeXRfuPuyc4yDJ4XDvxuQVreMFlGkv2I3AWw6y1rNXAq1CZvEaKPdMkp
       CALLBACK_URL: http://localhost:8000/hub/oauth_callback
-      AUTHORIZE_URL: http://localhost/oauth/authorize/
-      TOKEN_URL: http://nes/oauth/token/
-      USERDATA_URL: http://nes/oauth/userinfo/
+      AUTHORIZE_URL: https://localhost/oauth/authorize/
+      TOKEN_URL: https://nes/oauth/token/
+      USERDATA_URL: https://nes/oauth/userinfo/
+      NES_MEDIA_PATH: nes_media
 
 volumes:
   jupyterhub_data:
@@ -34,3 +37,4 @@ volumes:
 networks:
   nes_network:
     name: nes_network
+    external: true
